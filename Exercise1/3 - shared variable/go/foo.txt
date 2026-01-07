@@ -1,0 +1,71 @@
+// Use `go run foo.go` to run your program
+
+package main
+
+import (
+	. "fmt"
+	"runtime"
+	"sync"
+	"time"
+)
+
+var (
+	i  = 0
+	mu sync.Mutex
+)
+
+func incrementing(chan1 chan int) {
+	//TODO: increment i 1000000 times
+	for j := 0; j < 1000000; j++ {
+		chan1 <- 1
+	}
+}
+
+func decrementing(chan2 chan int) {
+	//TODO: decrement i 1000000 times
+	for j := 0; j < 999999; j++ {
+		chan2 <- 1
+	}
+
+}
+
+func server(chan1 chan int, chan2 chan int) {
+
+	for {
+		select {
+
+		case chan1 <- 1:
+			i++
+		case chan2 <- 1:
+			i--
+		case done <- 1:
+			return
+
+		}
+	}
+
+}
+
+func bitch() {
+	// What does GOMAXPROCS do? What happens if you set it to 1?
+	runtime.GOMAXPROCS(2)
+
+	//TODO: decrement i 1000000 times
+	chan1 := make(chan int)
+	chan2 := make(chan int)
+	done := make(chan int)
+
+	done <- 0
+	chan1 <- i
+	chan2 <- i
+	//chan2 := make(chan int)
+
+	go decrementing(chan1)
+	go incrementing(chan1)
+	done <- 1
+
+	// We have no direct way to wait for the completion of a goroutine (without additional synchronization of some sort)
+	// We will do it properly with channels soon. For now: Sleep.
+	time.Sleep(500 * time.Millisecond)
+	Println("The magic number is:", <-chan1)
+}
