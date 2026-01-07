@@ -3,7 +3,7 @@
 package main
 
 import (
-	. "fmt"
+	"fmt"
 	"runtime"
 	"sync"
 	"time"
@@ -61,16 +61,18 @@ func main() {
 
 	wg.Add(2)
 	go func() {
-		for j := 0; j < 999999; j++ {
+		for j := 0; j < 99; j++ {
 			ops <- operation{operationType: "dec"}
+			fmt.Println("type = dec")
 		}
 
 		wg.Done()
 	}()
 
 	go func() {
-		for j := 0; j < 1000000; j++ {
+		for j := 0; j < 100; j++ {
 			ops <- operation{operationType: "inc"}
+			fmt.Println("type = inc")
 		}
 
 		wg.Done()
@@ -84,5 +86,5 @@ func main() {
 	// We have no direct way to wait for the completion of a goroutine (without additional synchronization of some sort)
 	// We will do it properly with channels soon. For now: Sleep.
 	time.Sleep(500 * time.Millisecond)
-	Println("The magic number is:", <-response)
+	fmt.Println("The magic number is:", <-response)
 }

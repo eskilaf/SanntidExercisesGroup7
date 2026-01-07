@@ -4,10 +4,10 @@ Exercise 1 - Theory questions
 ### Concepts
 
 What is the difference between *concurrency* and *parallelism*?
-> *Your answer here*
+> Parallellism is several routines working at the same time, that is one way of doing concurrancy, which is the managing of several routines.
 
 What is the difference between a *race condition* and a *data race*? 
-> *Your answer here* 
+> 
  
 *Very* roughly - what does a *scheduler* do, and how does it do it?
 > *Your answer here* 
