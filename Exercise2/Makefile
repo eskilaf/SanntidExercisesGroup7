@@ -2,7 +2,7 @@ CC = clang
 
 CFLAGS = -Wall -g -std=gnu99 
 LDFLAGS = -lpthread -g
-SRC = TCP.c
+SRC = UDP.c
 
 TARGET = main
 

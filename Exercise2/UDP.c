@@ -4,10 +4,14 @@
 #include <arpa/inet.h>
 
 #define RCV_PORT_SIMULATOR 20001
+#define SEND_PORT_SIMULATOR 20000
 #define RCV_PORT 30000
 #define SEND_PORT 20008
 #define BUFFER_SIZE 1024
 #define FROMWHO_ADRESS "10.100.23.11"
+
+// Eskil prøvde serveren hjemme
+#define IP_LOCAL_ESKIL "172.26.161.38"
 
 void reciever();
 void sender();
@@ -16,8 +20,8 @@ void broadcast();
 int main() {
     printf("\nHello, World!\n");
 
-    //reciever();
     //sender();
+    //reciever();
     broadcast();
 
     return 0;
