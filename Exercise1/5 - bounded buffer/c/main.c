@@ -37,23 +37,14 @@ void buf_destroy(struct BoundedBuffer* buf){
     free(buf);
 }
 
-
-
-
 void buf_push(struct BoundedBuffer* buf, int val){    
     // TODO: wait for there to be room in the buffer
     sem_wait(&buf->capacity);
-    
     // TODO: make sure there is no concurrent access to the buffer internals
     pthread_mutex_lock(&buf->mtx);
-
     rb_push(buf->buf, val);
-
     pthread_mutex_unlock(&buf->mtx);
 
-    
-    
-    
     // TODO: signal that there are new elements in the buffer    
     sem_post(&buf->numElements);
 }

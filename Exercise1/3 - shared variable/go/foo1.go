@@ -60,6 +60,7 @@ func main() {
 	*/
 
 	wg.Add(2)
+	
 	go func() {
 		for j := 0; j < 99; j++ {
 			ops <- operation{operationType: "dec"}
